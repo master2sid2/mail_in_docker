@@ -1,4 +1,4 @@
-FROM    alpine:latest
+FROM    alpine:3.10.1
 
 RUN     apk add --update php-fpm \
                          php7-curl \
