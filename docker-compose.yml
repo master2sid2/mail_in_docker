@@ -1,0 +1,49 @@
+version: '3'
+services:
+  mysql:
+    image: centos/mysql-56-centos7:latest
+    environment:
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=12345678
+      - MYSQL_DATABASE=wordpress
+    volumes:
+      - mysql_db:/var/lib/mysql
+    networks:
+      - mail
+    hostname: mysql
+    container_name: mysql
+
+  php-fpm:
+    build:
+      dockerfile: Dockerfile
+      context: ./php
+    networks: 
+      - mail
+    volumes:
+      - www:/var/www
+    hostname: php-fpm
+    container_name: php-fpm
+
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    networks: 
+      - mail
+    ports:
+      - "18080:80"
+      - "18443:443"
+    volumes:
+      - www:/var/www
+    depends_on: 
+      - php-fpm
+      - ssl
+    hostname: nginx
+    container_name: nginx
+
+volumes:
+  www:
+  mysql_db:
+
+networks:
+  mail:
