@@ -1,11 +1,11 @@
 version: '3'
 services:
   mysql:
-    image: centos/mysql-56-centos7:latest
+    env_file:
+      - .env
+    image: mariadb:10.4
     environment:
-      - MYSQL_USER=
-      - MYSQL_PASSWORD=12345678
-      - MYSQL_DATABASE=wordpress
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - mysql_db:/var/lib/mysql
     networks:
@@ -37,9 +37,21 @@ services:
       - www:/var/www
     depends_on: 
       - php-fpm
-      - ssl
+#      - ssl
     hostname: nginx
     container_name: nginx
+
+  roundcube:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    networks:
+      - mail
+    volumes:
+      - www:/var/www
+    hostname: roundcube
+    container_name: roundcube
+
 
 volumes:
   www:
