@@ -33,8 +33,7 @@ services:
     networks: 
       - mail
     ports:
-      - "18080:80"
-      - "18443:443"
+      - "80"
     volumes:
       - www:/var/www
     depends_on: 

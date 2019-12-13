@@ -5,5 +5,4 @@ RUN	apk add --update nginx && \
 
 WORKDIR /var/www/
 
-EXPOSE	18080 18443
 CMD	["nginx", "-g", "daemon off;"]
