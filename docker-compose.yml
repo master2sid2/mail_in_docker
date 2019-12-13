@@ -43,6 +43,7 @@ services:
     hostname: nginx
     container_name: nginx
 
+<<<<<<< HEAD
   roundcube:
     build:
       dockerfile: Dockerfile
@@ -53,11 +54,22 @@ services:
       - www:/var/www
     hostname: roundcube
     container_name: roundcube
+=======
+  opendkim:
+    image: instrumentisto/opendkim:2.10.3-alpine
+    volumes:
+      - opendkim:/etc/opendkim\
+    networks:
+      - mail
+    hostname: opendkim
+    container_name: mailserver_opendkim
+>>>>>>> opendkim
 
 
 volumes:
   www:
   mysql_db:
+  opendkim:
 
 networks:
   mail:
