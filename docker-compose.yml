@@ -47,6 +47,8 @@ services:
       - opendkim:/etc/opendkim\
     networks:
       - mail
+    ports:
+      - "8891"
     hostname: opendkim
     container_name: mailserver_opendkim
 
